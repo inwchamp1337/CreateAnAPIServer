@@ -18,3 +18,5 @@ EXPOSE 3000
 
 # คำสั่งที่ใช้ในการรันแอป
 CMD ["npm", "start"]
+
+#yeseer
