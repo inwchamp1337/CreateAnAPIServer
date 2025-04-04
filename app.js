@@ -6,6 +6,8 @@ const swaggerUi = require('swagger-ui-express');
 const droneRoutes = require('./routes/droneRoutes');
 const logRoutes = require('./routes/logRoutes');
 
+const swaggerDocument = YAML.load('./swagger.yaml');
+
 const app = express();
 app.use(express.json());
 
@@ -36,3 +38,4 @@ app.use('/drones', droneRoutes);
 app.use('/logs', logRoutes);
 
 module.exports = app;
+

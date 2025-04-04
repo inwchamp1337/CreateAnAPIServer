@@ -1,0 +1,138 @@
+openapi: 3.0.0
+info:
+  title: Drone API
+  description: API for managing drone statuses and configurations
+  version: 1.0.0
+
+paths:
+  /status/{droneId}:
+    get:
+      summary: Get drone status
+      tags:
+        - Drones
+      parameters:
+        - in: path
+          name: droneId
+          required: true
+          schema:
+            type: string
+          description: The ID of the drone
+      responses:
+        200:
+          description: Successfully retrieved drone status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  condition:
+                    type: string
+                    example: "good"
+        404:
+          description: Drone not found
+
+  /configs/{droneId}:
+    get:
+      summary: Get drone configuration
+      tags:
+        - Drones
+      parameters:
+        - in: path
+          name: droneId
+          required: true
+          schema:
+            type: string
+          description: The ID of the drone
+      responses:
+        200:
+          description: Successfully retrieved drone configuration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  drone_id:
+                    type: number
+                    example: 3001
+                  drone_name:
+                    type: number
+                    example: 5000
+                  light:
+                    type: string
+                    example: "on"
+                  country:
+                    type: string
+                    example: "India"
+                  weight:
+                    type: number
+                    example: 21
+
+        404:
+          description: Drone configuration not found
+
+  /logs/{droneId}:
+    get:
+      summary: Get drone logs
+      tags:
+        - Drones
+      parameters:
+        - in: path
+          name: droneId
+          required: true
+          schema:
+            type: string
+          description: The ID of the drone
+       
+      responses:
+        200:
+          description: Successfully retrieved drone logs
+          
+        404:
+          description: Drone logs not found
+
+  /logs:
+    post:
+      summary: Create a new drone log
+      tags:
+        - Drones
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                drone_id:
+                  type: string
+                  example: "65010711"
+                drone_name:
+                  type: string
+                  example: "Drone-A1"
+                country:
+                  type: string
+                  example: "Thailand"
+                celsius:
+                  type: integer
+                  example: 28
+              required:
+                - drone_id
+                - drone_name
+                - country
+                - celsius
+      responses:
+        201:
+          description: Log created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Log created
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        500:
+          description: Server error
